@@ -1,0 +1,88 @@
+{% extends 'custom_admin/main.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container-scroller">
+        {% include 'custom_admin/navbar.html' %}
+        <div class="container-fluid page-body-wrapper">
+            {% include 'custom_admin/sidebar.html' %}
+            <div class="main-panel">
+                <div class="content-wrapper">
+
+                    <div class="row">
+
+                        <div class="col-md-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-title">Tickets</p>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="table-responsive">
+                                                <table class="display-3 expandable-table" style="width: 100%">
+
+                                                    <thead>
+                                                    <tr>
+                                                        <th>id</th>
+                                                        <th>Mentor</th>
+                                                        <th>Student</th>
+                                                        <th>Location</th>
+                                                        <th>Courses</th>
+                                                        <th>Price</th>
+                                                        <th>Salary</th>
+                                                        <th>Datetime</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                    {% for ticket in tickets %}
+                                                        <tr>
+                                                            <td>
+                                                                <a href="{% url 'ticket:update' ticket.id %}">{{ ticket.id }}</a>
+                                                            </td>
+                                                            <td>{{ ticket.mentor.username }}</td>
+                                                            <td>{{ ticket.student.username }}</td>
+                                                            <td>{{ ticket.location }}</td>
+                                                            <td>
+                                                                {% for course in ticket.course.all %}
+                                                                    {{ course }}
+                                                                    <br>
+                                                                {% endfor %}
+                                                            </td>
+                                                            <td>{{ ticket.price }}$</td>
+                                                            <td>{{ ticket.salary }}$</td>
+                                                            <td>{{ ticket.created }}</td>
+                                                            <td>{{ ticket.status }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a
+                            href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
+                                class="ti-heart text-danger ml-1"></i></span>
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+{% endblock content %}
